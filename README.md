@@ -7,6 +7,6 @@ A general purpose social media think tank built to encourage real trusted conten
 1. AdonisJS
 2. NextJS (React 19, Zustand, ShadCN, TailwindCSS)
 3. Neo4j (Graph DB for Social Relations)
-4. PostgreSQL (using ParadeDB for search purpose)
+4. PostgreSQL
 5. Redis (Caching & Websocket)
 6. Websockets (for realtime communication & online status)
