@@ -254,10 +254,6 @@ export default function DailyDiary() {
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
-  // Separate pinned and unpinned entries
-  const pinnedEntries = sortedEntries.filter((entry) => entry.isPinned);
-  const unpinnedEntries = sortedEntries.filter((entry) => !entry.isPinned);
-
   const renderEntry = (entry: DiaryEntry) => (
     <motion.div
       key={entry.id}
@@ -267,8 +263,7 @@ export default function DailyDiary() {
       transition={{ duration: 0.2, ease: "easeInOut" }}>
       <Card
         className={cn(
-          "transition-all hover:shadow-md border-0 py-0 bg-white shadow-[6px_6px_0px_#000] flex flex-col h-72 rounded-lg",
-          entry.isPinned && "border-primary"
+          "transition-all hover:shadow-md mt-2 border-2 flex pb-4 pt-0 flex-col rounded-lg"
         )}>
         {/* Header */}
         <CardHeader className="pt-4 pb-0">
@@ -276,8 +271,24 @@ export default function DailyDiary() {
             <CardTitle className="text-lg">
               {entry.title || "Untitled"}
             </CardTitle>
+          </div>
+          <CardDescription className="pt-0">
+            {format(new Date(entry.date), "PPP")}
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className="flex-grow ">
+          <ScrollArea className="h-full rounded-md">
+            <p className="text-sm rounded-md">{entry.content}</p>
+          </ScrollArea>
+        </CardContent>
+
+        {/* Footer */}
+        <CardFooter className="flex justify-between py-0 mt-2 mb-0">
+          {/* Share & Copy Buttons */}
+          <div className="flex items-center gap-2">
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
               className="rounded-full"
               onClick={(e) => {
@@ -290,27 +301,11 @@ export default function DailyDiary() {
                 <Pin className="h-4 w-4 text-primary" />
               )}
             </Button>
-          </div>
-          <CardDescription className="pt-0">
-            {format(new Date(entry.date), "PPP")}
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent className="flex-grow">
-          <ScrollArea className="h-full rounded-md">
-            <p className="text-sm rounded-md">{entry.content}</p>
-          </ScrollArea>
-        </CardContent>
-
-        {/* Footer */}
-        <CardFooter className="flex justify-between border-t [.border-t]:pt-2 mb-2">
-          {/* Share & Copy Buttons */}
-          <div className="flex items-center gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  size="sm"
+                  size="icon"
                   className="rounded-full"
                   onClick={(e) => e.stopPropagation()}>
                   <Share className="h-4 w-4" />
@@ -334,7 +329,7 @@ export default function DailyDiary() {
 
             <Button
               variant="outline"
-              size="sm"
+              size="icon"
               className="rounded-full"
               onClick={(e) => {
                 e.stopPropagation();
@@ -352,26 +347,24 @@ export default function DailyDiary() {
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
-              size="sm"
+              size="icon"
               className="rounded-full"
               onClick={(e) => {
                 e.stopPropagation();
                 handleEdit(entry);
               }}>
               <Edit2 className="h-4 w-4" />
-              Edit
             </Button>
 
             <Button
               variant="outline"
-              size="sm"
-              className="rounded-full border-red-500 hover:bg-red-600 hover:text-white"
+              size="icon"
+              className="rounded-full bg-red-600 hover:bg-red-600"
               onClick={(e) => {
                 e.stopPropagation();
                 handleDelete(entry.id);
               }}>
-              <Trash className="h-4 w-4" />
-              Delete
+              <Trash className="h-4 w-4 text-white" />
             </Button>
           </div>
         </CardFooter>
@@ -380,26 +373,27 @@ export default function DailyDiary() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div>
       <div className="w-full">
-        <div className="flex justify-between items-center p-4  border-b">
-          <h1 className="text-3xl font-extrabold">My Diary</h1>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}>
-            <Button
-              onClick={handleNewEntry}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-white hover:bg-primary/90 transition-all">
-              <PlusCircle className="h-4 w-4" />
-              <span>Write a Note</span>
-            </Button>
-          </motion.div>
-        </div>
 
-        <ScrollArea className="h-screen bg-slate-50 p-4">
+
+        <ScrollArea className="overflow-y-scroll h-screen  px-4">
+          <div className="flex justify-between items-center px-2 py-4">
+            <h1 className="text-3xl font-extrabold">My Diary</h1>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}>
+              <Button
+                onClick={handleNewEntry}
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-white hover:bg-primary/90 transition-all">
+                <PlusCircle className="h-4 w-4" />
+                <span>Write a Note</span>
+              </Button>
+            </motion.div>
+          </div>
           {isLoading ? (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {[...Array(6)].map((_, i) => (
@@ -408,12 +402,9 @@ export default function DailyDiary() {
             </div>
           ) : (
             <div className="mr-2">
-              {pinnedEntries.length > 0 && (
+              {sortedEntries.length > 0 && (
                 <>
                   <div className="mb-6">
-                    <h2 className="text-lg font-semibold mb-3">
-                      📌 Pinned Notes
-                    </h2>
                     <div
                       className={cn(
                         "ml-2",
@@ -421,35 +412,13 @@ export default function DailyDiary() {
                           ? "grid gap-4 md:grid-cols-2 lg:grid-cols-3"
                           : "flex flex-col gap-3"
                       )}>
-                      {pinnedEntries.map(renderEntry)}
+                      {sortedEntries.map(renderEntry)}
                     </div>
                   </div>
-                  <Separator className="mb-4" />
                 </>
               )}
 
-              {unpinnedEntries.length > 0 && (
-                <>
-                  <div
-                    className={cn(
-                      "ml-2",
-                      viewMode === "grid"
-                        ? "grid gap-4 md:grid-cols-2 lg:grid-cols-3"
-                        : "flex flex-col gap-3"
-                    )}>
-                    {unpinnedEntries.map(renderEntry)}
-                  </div>
-                </>
-              )}
-
-              {pinnedEntries.length > 0 && unpinnedEntries.length === 0 && (
-                <div className="flex flex-col items-center justify-center gap-y-4 text-center py-12 text-muted-foreground">
-                  <Flower2 className="h-14 w-14 text-black" />
-                  <p>No unpinned notes yet, they&apos;re pinned right now</p>
-                </div>
-              )}
-
-              {unpinnedEntries.length === 0 && pinnedEntries.length === 0 && (
+              {sortedEntries.length === 0 && (
                 <div className="text-center py-12 text-muted-foreground">
                   No notes yet. Click &apos;New Entry&apos; to create your first
                   note.
@@ -461,7 +430,9 @@ export default function DailyDiary() {
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-md max-w-sm rounded-md">
+        <DialogContent className="sm:max-w-md max-w-sm rounded-md" onInteractOutside={(e) => {
+          e.preventDefault()
+        }}>
           <DialogHeader>
             <DialogTitle>
               {currentEntry?.id && entries.some((e) => e.id === currentEntry.id)
@@ -535,7 +506,7 @@ export default function DailyDiary() {
 }
 
 const SkeletonCard = () => (
-  <div className="animate-pulse p-2 mx-2 border-2 border-black rounded-lg shadow-[6px_6px_0px_#000] bg-white">
+  <div className="animate-pulse p-2 mx-2 my-2 bg-white">
     <div className="h-6 bg-gray-200 rounded-md mb-3 w-3/4"></div>
     <div className="h-4 bg-gray-200 rounded-md mb-2 w-full"></div>
     <div className="h-4 bg-gray-200 rounded-md mb-2 w-5/6"></div>

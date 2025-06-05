@@ -147,7 +147,7 @@ export default function MySocialCircle({ currentUser }: TUserProps) {
           </Button>
         </motion.div>
       </DialogTrigger>
-      <DialogContent className="w-full max-w-sm sm:max-w-[510px] rounded-md pt-0 px-4 [&>button]:hidden">
+      <DialogContent className="w-full rounded-md pt-0 px-4 [&>button]:hidden">
         <DialogHeader>
           <DialogTitle className="font-bold hidden">
             Your Social Circle
@@ -162,8 +162,7 @@ export default function MySocialCircle({ currentUser }: TUserProps) {
           onValueChange={setActiveTab}>
           <TabsList
             className={cn(
-              `grid w-full ${
-                currentUser?.private! ? "grid-cols-3" : "grid-cols-2"
+              `grid w-full ${currentUser?.private! ? "grid-cols-3" : "grid-cols-2"
               }`
             )}>
             <TabsTrigger value="followers">

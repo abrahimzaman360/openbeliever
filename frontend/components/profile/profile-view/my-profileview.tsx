@@ -422,9 +422,8 @@ export default function MyProfileView({ currentUser }: Props) {
                             top: startY,
                             width: "3px",
                             height: `${60 + Math.random() * 40}px`,
-                            background: `rgba(100,181,246,${
-                              0.3 + Math.random() * 0.2
-                            })`,
+                            background: `rgba(100,181,246,${0.3 + Math.random() * 0.2
+                              })`,
                             borderRadius: "4px",
                             transformOrigin: "center",
                             transform: `rotate(${angle + Math.PI}rad)`,
@@ -494,7 +493,7 @@ export default function MyProfileView({ currentUser }: Props) {
                     <div className="w-full h-full bg-gradient-conic from-blue-900/10 via-blue-500/5 to-purple-800/5 rounded-full blur-sm" />
                   </motion.div>
 
-                  <div className="w-72 h-72 rounded-full overflow-hidden relative">
+                  <div className="w-72 h-72 overflow-hidden relative">
                     <motion.div
                       className="absolute inset-0 bg-gradient-radial from-black/70 to-black/90 z-10 pointer-events-none"
                       animate={{
@@ -522,9 +521,8 @@ export default function MyProfileView({ currentUser }: Props) {
                       alt="Display Image Preview"
                       width={300}
                       height={300}
-                      quality={100}
                       blurDataURL={`${MEDIA_URL}${selectedImage}`}
-                      className="object-cover"
+                      className="object-cover rounded-full"
                       draggable="false"
                       unoptimized
                       priority

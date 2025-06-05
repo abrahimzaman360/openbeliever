@@ -7,7 +7,7 @@ import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `Feed`,
+    title: `Home Feed`,
     description: `Here you can view your profile.`,
   };
 }
@@ -18,7 +18,7 @@ export default function NotificationsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main suppressHydrationWarning>
+    <main>
       <div className="min-h-screen bg-background">
         <div className="mx-auto flex w-full flex-col lg:flex-row justify-between">
           {/* Left Sidebar - Navigation */}

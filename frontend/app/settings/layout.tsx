@@ -64,23 +64,24 @@ export default function SettingsLayout({
   return (
     <div
       className="min-h-screen bg-background"
-      suppressHydrationWarning
-      suppressContentEditableWarning>
+    >
       <div
-        className="grid lg:grid-cols-[300px_auto] grid-cols-1"
-        suppressHydrationWarning>
+        className="flex"
+      >
         <div className="border-r">
           <LeftMenu className="lg:w-full" />
         </div>
         {/* Center - Post Feed */}
         <div className="border-x border-border w-full">
           <div className="border-b border-border bg-background p-2 sm:p-4 ">
-            <Link href={"/feed"}>Home</Link>
+            <Link href={isMobile ? "/feed" : "/settings"} className="font-bold">
+              {isMobile ? "Return to Home" : "Settings"}
+            </Link>
           </div>
 
-          <div className="grid lg:grid-cols-[300px_auto] grid-cols-1">
+          <div className="flex flex-col md:flex-row">
             {/* Sidebar Navigation for Desktop */}
-            <div className="hidden md:block border-r p-2">
+            <div className="hidden md:block max-w-xs w-full border-r p-2">
               <div className="space-y-1">
                 {navItems.map((item) => (
                   <Link key={item.href} href={item.href}>
@@ -99,7 +100,7 @@ export default function SettingsLayout({
             </div>
 
             {/* Main Content */}
-            <main className="h-full w-full">{children}</main>
+            <main className="h-full max-w-4xl w-full">{children}</main>
 
             {/* Mobile Bottom Navigation */}
             {isMobile && (

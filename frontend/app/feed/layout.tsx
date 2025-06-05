@@ -16,7 +16,7 @@ export default function FeedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main suppressHydrationWarning>
+    <main>
       <div className="min-h-screen bg-background">
         <div className="mx-auto flex w-full flex-col lg:flex-row justify-between">
           {/* Left Sidebar - Navigation */}

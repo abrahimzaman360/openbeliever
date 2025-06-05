@@ -16,7 +16,7 @@ export default function MessagesLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main suppressHydrationWarning>
+    <main>
       <div className="min-h-screen bg-background">
         <div className="mx-auto flex w-full flex-col lg:flex-row justify-between">
           {/* Left Sidebar - Navigation */}
@@ -26,9 +26,6 @@ export default function MessagesLayout({
 
           {/* Center - Post Feed */}
           <div className="h-screen w-full flex flex-col">
-            <div className="hidden md:block">
-              <NestedNavbar />
-            </div>
             {children}
           </div>
         </div>

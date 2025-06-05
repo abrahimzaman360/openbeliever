@@ -1,7 +1,6 @@
 "use client";
-
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Smartphone, Users, Globe } from "lucide-react";
@@ -56,8 +55,8 @@ export function Hero() {
                   placeholder="Enter your email"
                 />
                 <Button type="submit">
-                  Join Now
                   <ArrowRight className="ml-2 h-4 w-4" />
+                  Join Now
                 </Button>
               </form>
             </motion.div>

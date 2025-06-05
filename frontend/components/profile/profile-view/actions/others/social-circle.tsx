@@ -69,7 +69,7 @@ export default function OthersSocialCircle({
           </Button>
         </motion.div>
       </DialogTrigger>
-      <DialogContent className="min-w-[400px] sm:max-w-[510px] rounded-md">
+      <DialogContent className=" rounded-md [&>button]:hidden">
         <DialogHeader>
           <DialogTitle className="font-bold">
             {beingStalked.name}&apos;s Social Circle
