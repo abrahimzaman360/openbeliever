@@ -431,7 +431,6 @@ export default function CreatePostComponent({ currentUser }: TProps) {
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-2">
             <div className="space-y-2">
-              <Label htmlFor="content">Content</Label>
               <Textarea
                 id="content"
                 name="content"
@@ -446,8 +445,8 @@ export default function CreatePostComponent({ currentUser }: TProps) {
                 required
               />
             </div>
-            <div className="flex space-x-2">
-              <div className="flex-1">
+            <div className="flex space-x-2 ">
+              <div className="flex-1 space-y-2">
                 <Label htmlFor="category">Category</Label>
                 <Select
                   value={postData.topic}
@@ -470,7 +469,7 @@ export default function CreatePostComponent({ currentUser }: TProps) {
                   </SelectContent>
                 </Select>
               </div>
-              <div>
+              <div className="space-y-2">
                 <Label htmlFor="privacy">Privacy</Label>
                 <Select
                   value={postData.privacy}
@@ -543,7 +542,7 @@ export default function CreatePostComponent({ currentUser }: TProps) {
                 </div>
               </div>
             </div>
-            <div className="space-y-2 py-2">
+            <div className="space-y-2 py-1">
               <Label>
                 Media{" "}
                 <span className="text-sm font-normal">
@@ -680,7 +679,7 @@ export default function CreatePostComponent({ currentUser }: TProps) {
             <div className="flex flex-col items-center space-y-2">
               <Button
                 type="submit"
-                className="w-full rounded-full select-none"
+                className="w-full select-none"
                 variant={
                   currentUser?.emailVerified === false
                     ? "destructive"

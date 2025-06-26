@@ -29,6 +29,18 @@ services:
     volumes:
       - graph_data:/data
 
+  openbeliever_storage:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"  # S3 API
+      - "9001:9001"  # Web UI
+    environment:
+      MINIO_ROOT_USER: mrtux
+      MINIO_ROOT_PASSWORD: mrtux360 # 🔐
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+
 networks:
   default:
     driver: bridge
@@ -37,3 +49,4 @@ volumes:
   db_data:
   cache_data:
   graph_data:
+  minio_data:
